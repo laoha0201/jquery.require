@@ -2,9 +2,6 @@
   "name": "jquery.require",
   "main": "jquery.require.js",
   "version": "1.0.0",
-  "authors": [
-    "'Ilya <masalygin.ilya@gmail.com>"
-  ],
   "description": "Simple jQuery plugin to load the JS and CSS only once, either synchronously or asynchronously",
   "moduleType": [
     "globals"
