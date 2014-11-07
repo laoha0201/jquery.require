@@ -1,5 +1,5 @@
 /*!
- * jQuery Require Plugin v1.0.0
+ * jQuery Require Plugin v1.0.1
  * https://github.com/masalygin/jquery.require
  *
  * Copyright 2014 Ilya Masalygin
@@ -41,13 +41,26 @@
 
 		async: function(options) {
 
-			var deferred = [];
+			return (function(options) {
 
-			$.each(options.files, function(index, url) {
-				deferred.push(require.load(url, options));
-			});
+				var deferred = $.Deferred();
+				var files = options.files;
+				var len = files.length;
+				var index = 0;
 
-			return $.when.apply($, deferred);
+				$.each(files, function(i, file) {
+					require.load(file, options).done(function() {
+						index++;
+						deferred.notify(file, index, len);
+						if (index === len) {
+							deferred.resolve();
+						}
+					});
+				});
+
+				return deferred.promise();
+
+			})(options);
 
 		},
 
@@ -62,7 +75,9 @@
 
 				function load(file) {
 					require.load(file, options).done(function() {
-						if (++index < len) {
+						index++;
+						deferred.notify(file, index, len);
+						if (index < len) {
 							load(files[index]);
 						} else {
 							deferred.resolve();

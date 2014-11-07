@@ -1,7 +1,7 @@
 {
   "name": "jquery.require",
   "main": "jquery.require.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple jQuery plugin to load the JS and CSS only once, either synchronously or asynchronously",
   "moduleType": [
     "globals"
